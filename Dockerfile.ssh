@@ -1,0 +1,19 @@
+FROM ubuntu
+
+RUN apt-get update && apt-get -y install \
+    dnsutils \
+    netcat-openbsd \
+    net-tools \
+    iputils-ping \
+    nano \
+    neofetch \
+    wget \
+    curl \
+    openssh-server
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+COPY --chmod=755 docker-entrypoint-ssh.sh /usr/bin/
+
+ENTRYPOINT ["docker-entrypoint-ssh.sh"]

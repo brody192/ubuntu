@@ -1,0 +1,19 @@
+FROM ubuntu
+
+RUN apt-get update && apt-get -y install \
+    dnsutils \
+    netcat-openbsd \
+    net-tools \
+    iputils-ping \
+    nano \
+    neofetch \
+    wget \
+    curl
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+RUN curl -fsSLo /bin/ttyd https://github.com/tsl0922/ttyd/releases/download/$(curl -fsSL https://get-latest.deno.dev/tsl0922/ttyd?no-v=true)/ttyd.x86_64 && \
+    chmod +x /bin/ttyd
+
+CMD ["bin/bash", "-c", "exec /bin/ttyd -W -p $PORT -c $USERNAME:$PASSWORD /bin/bash"]

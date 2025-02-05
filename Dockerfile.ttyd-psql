@@ -1,0 +1,25 @@
+FROM ubuntu
+
+RUN apt-get update && apt-get -y install \
+    dnsutils \
+    netcat-openbsd \
+    net-tools \
+    iputils-ping \
+    nano \
+    neofetch \
+    wget \
+    curl
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+RUN apt-get update && apt-get -y install gnupg2 && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt $(grep UBUNTU_CODENAME /etc/os-release | cut -d= -f2)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg && \
+    apt-get update && \
+    apt-get -y install postgresql-16 ncurses-bin
+
+RUN curl -fsSLo /bin/ttyd https://github.com/tsl0922/ttyd/releases/download/$(curl -fsSL https://get-latest.deno.dev/tsl0922/ttyd?no-v=true)/ttyd.x86_64 && \
+    chmod +x /bin/ttyd
+
+CMD ["bin/bash", "-c", "exec /bin/ttyd -W -p $PORT -c $USERNAME:$PASSWORD /bin/bash"]
