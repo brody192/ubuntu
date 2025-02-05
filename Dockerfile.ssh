@@ -1,5 +1,8 @@
 FROM ubuntu
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
 RUN apt-get update && apt-get -y install \
     dnsutils \
     netcat-openbsd \
@@ -10,9 +13,6 @@ RUN apt-get update && apt-get -y install \
     wget \
     curl \
     openssh-server
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=UTC
 
 COPY --chmod=755 docker-entrypoint-ssh.sh /usr/bin/
 

@@ -1,5 +1,8 @@
 FROM ubuntu
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
 RUN apt-get update && apt-get -y install \
     dnsutils \
     netcat-openbsd \
@@ -9,9 +12,6 @@ RUN apt-get update && apt-get -y install \
     neofetch \
     wget \
     curl
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=UTC
 
 RUN curl -fsSLo /bin/ttyd https://github.com/tsl0922/ttyd/releases/download/$(curl -fsSL https://get-latest.deno.dev/tsl0922/ttyd?no-v=true)/ttyd.x86_64 && \
     chmod +x /bin/ttyd
