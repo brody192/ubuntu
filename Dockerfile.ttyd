@@ -11,6 +11,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     nano \
     wget \
     curl \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSLo /bin/ttyd https://github.com/tsl0922/ttyd/releases/download/$(curl -fsSL https://get-latest.deno.dev/tsl0922/ttyd?no-v=true)/ttyd.x86_64 && \
