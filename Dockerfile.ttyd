@@ -3,15 +3,15 @@ FROM ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && apt-get -y --no-install-recommends install \
     dnsutils \
     netcat-openbsd \
     net-tools \
     iputils-ping \
     nano \
-    neofetch \
     wget \
-    curl
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSLo /bin/ttyd https://github.com/tsl0922/ttyd/releases/download/$(curl -fsSL https://get-latest.deno.dev/tsl0922/ttyd?no-v=true)/ttyd.x86_64 && \
     chmod +x /bin/ttyd
